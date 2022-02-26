@@ -23,7 +23,6 @@ class Init
     private function init(): void
     {
         if (is_admin()) {
-            new Admin\Settings();
             new Admin\Page();
         }
 
@@ -35,14 +34,15 @@ class Init
      */
     public function harden(): void
     {
+        new Harden\HttpHeader(); // Before login, since login sends headers.
+        new Harden\Login();
         new Harden\Author();
         new Harden\WpVersion();
-        new Harden\HttpHeader();
         // new Harden\RestApi();
         new Harden\XmlRpc();
         new Harden\Wlw();
         new Harden\Rsd();
         new Harden\FileEdit();
-        Harden\PublicCoreFiles::addActions();
+        new Harden\PublicCoreFiles();
     }
 }

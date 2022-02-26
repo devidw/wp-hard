@@ -25,6 +25,7 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5",
-        "symfony/var-dumper": "^6.0"
+        "symfony/var-dumper": "^6.0",
+        "devidw/wp-helper": "dev-master"
     }
 }

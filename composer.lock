@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "327e4bb77671ff8ca11bfe2365b705bd",
+    "content-hash": "277aa9c3d81956751078031acb1bfbc8",
     "packages": [
         {
             "name": "composer/installers",
@@ -392,6 +392,58 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "devidw/wp-helper",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/devidw/wp-helper.git",
+                "reference": "49c51cd603db18faea1a30ec6f513c93f324cce1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/devidw/wp-helper/zipball/49c51cd603db18faea1a30ec6f513c93f324cce1",
+                "reference": "49c51cd603db18faea1a30ec6f513c93f324cce1",
+                "shasum": ""
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Devidw\\WordPress\\Helper\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "David Wolf",
+                    "email": "david@wolf.gdn"
+                }
+            ],
+            "description": "Handful helper functions to use inside a WordPress Theme or Plugin.",
+            "support": {
+                "issues": "https://github.com/devidw/wp-helper/issues",
+                "source": "https://github.com/devidw/wp-helper/tree/master"
+            },
+            "funding": [
+                {
+                    "url": "",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://buymeacoffee.com/dwolf",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://paypal.me/devidwolf",
+                    "type": "custom"
+                }
+            ],
+            "time": "2022-02-26T19:15:13+00:00"
+        },
         {
             "name": "doctrine/instantiator",
             "version": "1.4.0",
@@ -2494,7 +2546,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "devidw/wp-helper": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

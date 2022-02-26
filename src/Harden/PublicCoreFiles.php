@@ -31,6 +31,71 @@ class PublicCoreFiles
     ];
 
     /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        add_action('admin_init', [$this, 'registerSettings']);
+
+        add_action(
+            hook_name: 'admin_post_dw_hard_delete_public_core_files',
+            callback: [$this, 'adminFormHandler']
+        );
+
+        if ((bool) get_option('dw_hard_auto_delete_public_core_files') === true) {
+            add_action(
+                hook_name: '_core_updated_successfully',
+                callback: [$this, 'deleteFiles'],
+            );
+        }
+    }
+
+    /**
+     * Register auto delete public core files setting.
+     */
+    public function registerSettings(): void
+    {
+        register_setting(
+            option_group: 'dw-hard',
+            option_name: 'dw_hard_auto_delete_public_core_files',
+            args: [
+                'type' => 'boolean',
+                'description' => 'Automatically delete public core files on each core update.',
+                'sanitize_callback' => function (mixed $value): bool {
+                    return (bool) $value;
+                },
+                'show_in_rest' => false,
+                'default' => false,
+            ],
+        );
+
+        add_settings_section(
+            id: 'dw-hard-auto-delete-public-core-files-section',
+            title: 'Auto Delete Public Core Files',
+            callback: function () {
+                echo <<<HTML
+                <p>Automatically delete public core files on each core update.</p>
+                HTML;
+            },
+            page: 'dw-hard',
+        );
+
+        add_settings_field(
+            id: 'dw-hard-auto-delete-public-core-files-field',
+            title: 'Auto Delete Public Core Files',
+            callback: function () {
+                $value = get_option('dw_hard_auto_delete_public_core_files');
+                $checked = $value ? 'checked' : '';
+                echo <<<HTML
+                <input type="checkbox" name="dw_hard_auto_delete_public_core_files" {$checked}>
+                HTML;
+            },
+            page: 'dw-hard',
+            section: 'dw-hard-auto-delete-public-core-files-section',
+        );
+    }
+
+    /**
      * Get all public root files.
      */
     public static function getFiles(): array
@@ -62,27 +127,9 @@ class PublicCoreFiles
     }
 
     /**
-     * Add actions to delete files.
-     */
-    public static function addActions(): void
-    {
-        add_action(
-            hook_name: 'admin_post_dw_hard_delete_public_core_files',
-            callback: [__CLASS__, 'adminFormHandler']
-        );
-
-        if ((bool) get_option('dw_hard_auto_delete_public_core_files') === true) {
-            add_action(
-                hook_name: '_core_updated_successfully',
-                callback: [__CLASS__, 'deleteFiles'],
-            );
-        }
-    }
-
-    /**
      * Delete all public root files.
      */
-    public static function deleteFiles(): void
+    public function deleteFiles(): void
     {
         $files = array_map(function ($file) {
             return ABSPATH . $file;
@@ -98,7 +145,7 @@ class PublicCoreFiles
     /**
      * Admin form handler.
      */
-    public static function adminFormHandler(): void
+    public function adminFormHandler(): void
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             return;
