@@ -1,0 +1,19 @@
+<div class="wrap">
+  <h1>{{ title }}</h1>
+
+  <h2 class="nav-tab-wrapper">
+    {% for tab in tabs %}
+    <a
+      href="{{url}}&tab={{ tab.slug }}"
+      class="nav-tab {{ activeTab.slug is same as tab.slug ? 'nav-tab-active' : ''}}"
+    >
+      {{ tab.name }}
+    </a>
+    {% endfor %}
+  </h2>
+
+  <div>
+    {% include "./tabs/#{activeTab.slug}.html" with {'tab': activeTab.context}
+    %}
+  </div>
+</div>

@@ -1,0 +1,30 @@
+{
+    "name": "devidw/wp-hard",
+    "description": "Hardening WordPress.",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "David Wolf",
+            "email": "david@wolf.gdn"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Devidw\\Hard\\": "src/"
+        }
+    },
+    "require": {
+        "twig/twig": "^3.3",
+        "composer/installers": "^2.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5",
+        "symfony/var-dumper": "^6.0"
+    }
+}

@@ -1,0 +1,38 @@
+<p>
+  Publicly accessible files of the WordPress core. Could possible be used to
+  circumvent the WordPress security. They can be deleted savely.
+</p>
+
+<form action="{{formAction}}" method="post">
+  <input type="hidden" name="action" value="{{ tab.action }}" />
+
+  {{ tab.nonce|raw }}
+
+  <table class="form-table" role="presentation">
+    <tbody>
+      <tr>
+        <th scope="row">Files</th>
+        <td>
+          {% for file in tab.files|sort((a, b) => a.name <=> b.name) %}
+          <p>
+            <code>
+              {% if file.exists is same as true %}
+              <a href="{{ siteUrl }}/{{ file.name }}" target="_blank">
+                {{ file.name }}
+              </a>
+              {% else %}
+              <s> {{ file.name }} </s>
+              {% endif %}
+            </code>
+          </p>
+          {% endfor %}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  {% if tab.allFilesDeleted is same as false %}
+  <p class="submit">
+    <input type="submit" class="button button-primary" value="Delete" />
+  </p>
+  {% endif %}
+</form>

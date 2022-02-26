@@ -1,0 +1,8 @@
+# Project
+/cache/
+
+# Composer
+/vendor/
+
+# OS
+.DS_STORE
