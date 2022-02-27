@@ -94,8 +94,8 @@ class Plugin
             return $rowMeta;
         }
 
-        $rowMeta[] = '<a href="' . 'https://github.com/devidw' . '" target="_blank">GitHub</a>';
-        $rowMeta[] = '<a href="' . 'https://paypal.me/devidwolf' . '" target="_blank">Donate</a>';
+        $rowMeta[] = '<a href="' . 'https://github.com/devidw' . '" target="_blank" rel="noopener noreferrer">GitHub</a>';
+        $rowMeta[] = '<a href="' . 'https://paypal.me/devidwolf' . '" target="_blank" rel="noopener noreferrer">Donate</a>';
 
         return $rowMeta;
     }

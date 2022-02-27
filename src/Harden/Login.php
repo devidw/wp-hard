@@ -53,7 +53,7 @@ class Login
             args: [
                 'type' => 'string',
                 'description' => 'Change the login URL',
-                'sanitize_callback' => function (mixed $value): string {
+                'sanitize_callback' => function (null|string $value): string {
                     $chars = str_split($value);
 
                     $chars = array_filter($chars, function ($char) {
@@ -77,11 +77,13 @@ class Login
             id: 'dw-hard-login-section',
             title: 'Login',
             callback: function () {
-                echo <<<HTML
-                <p>
-                    Remove the default WordPress login page and set up a custom login page.
-                </p>
-                HTML;
+?>
+            <p>
+                Restrict direct access to your default WordPress
+                <a href="<?= wp_login_url() ?>" target="_blank" rel="noopener noreferrer"><code>wp-login.php</code></a>
+                and protect it with an extra layer of security by adding a custom login page.
+            </p>
+        <?php
             },
             page: 'dw-hard',
         );
@@ -94,17 +96,23 @@ class Login
                     path: 'options-permalink.php',
                 );
 
-                $value = esc_html(get_option('dw_hard_custom_login_sliug'));
+                $value = esc_html(get_option('dw_hard_custom_login_slug'));
 
-                echo <<<HTML
-                <input type="text" name="dw_hard_custom_login_sliug" value="{$value}" pattern="[a-zA-Z0-9]+" maxlength="32" placeholder="supersecret">
-                <p>
-                    Allowed characters: a-z, A-Z, 0-9 and up to 32 characters.
-                </p>
-                <p>
-                    After saving your custom login page URL, you have to go to reflush the permalinks. Go to the <a href="{$permalinkUrl}">Permalinks</a> page and click the <strong>Save Changes</strong> button.
-                </p>
-                HTML;
+        ?>
+            <a href="<?= $this->getCustomLoginPageUrl() ?>" target="_blank" rel="noopener noreferrer"><code><?= home_url('/') ?></code></a>
+
+            <input type="text" name="dw_hard_custom_login_slug" value="<?= $value ?>" pattern="[a-zA-Z0-9]+" maxlength="32" placeholder="supersecret">
+
+            <a href="<?= $this->getCustomLoginPageUrl() ?>" target="_blank" rel="noopener noreferrer"><code>/</code></a>
+
+            <p>
+                Allowed characters: a-z, A-Z, 0-9 and up to 32 characters.
+            </p>
+
+            <p>
+                After saving your custom login page URL, you have to reflush the permalinks. Go to the <a href="<?= $permalinkUrl ?>">Permalinks</a> page and click the <strong>Save Changes</strong> button.
+            </p>
+<?php
             },
             page: 'dw-hard',
             section: 'dw-hard-login-section',
@@ -116,7 +124,21 @@ class Login
      */
     public function getCustomLoginPageSlug(): string|bool
     {
-        return get_option('dw_hard_custom_login_sliug');
+        return get_option('dw_hard_custom_login_slug');
+    }
+
+    /**
+     * Get custom login page URL.
+     */
+    public function getCustomLoginPageUrl(): string
+    {
+        $slug = $this->getCustomLoginPageSlug();
+
+        if (!$slug) {
+            return wp_login_url();
+        }
+
+        return home_url('/') . $slug . '/';
     }
 
     /**
@@ -185,14 +207,24 @@ class Login
      */
     public function replaceDefaultLoginPage(): void
     {
-        if (
-            !Helper::isLoginPage() or
-            !empty($_GET['action']) and $_GET['action'] === 'logout' and !empty($_GET['_wpnonce']) and wp_verify_nonce($_GET['_wpnonce'], 'log-out') === 1 or
-            !empty($_GET['dw_hard_login_nonce']) and wp_verify_nonce($_GET['dw_hard_login_nonce'], 'dw_hard_login_nonce') === 1
-        ) {
+        if (!Helper::isLoginPage()) {
+            return;
+        }
+
+        /**
+         * Doing default WordPress logout.
+         */
+        if (!empty($_GET['action']) and $_GET['action'] === 'logout' and !empty($_GET['_wpnonce']) and wp_verify_nonce($_GET['_wpnonce'], 'log-out') === 1) {
+            return;
+        }
+
+        /**
+         * Doing the customized WordPress login.
+         */
+        if (!empty($_GET['dw_hard_login_nonce']) and wp_verify_nonce($_GET['dw_hard_login_nonce'], 'dw_hard_login_nonce') === 1) {
 
             /**
-             * When we are on the login page, we have to add the nonce, to the form[action*="wp-login.php"].
+             * We have to add the nonce to the form[action*="wp-login.php"] to keep things working after submitting the form.
              */
             if (Helper::isLoginPage()) {
                 add_filter(

@@ -73,9 +73,16 @@ class PublicCoreFiles
             id: 'dw-hard-auto-delete-public-core-files-section',
             title: 'Auto Delete Public Core Files',
             callback: function () {
-                echo <<<HTML
-                <p>Automatically delete public core files on each core update.</p>
-                HTML;
+?>
+            <p>
+                Automatically delete public core files on each core update.
+                For a full list of affected files, see the
+                <a href="<?= admin_url('options-general.php?page=dw-hard&tab=files') ?>">
+                    Public Core Files
+                </a>
+                tab.
+            </p>
+<?php
             },
             page: 'dw-hard',
         );

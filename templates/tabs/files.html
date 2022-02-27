@@ -3,6 +3,12 @@
   circumvent the WordPress security. They can be deleted savely.
 </p>
 
+<p>
+  Crossed out file names are no longer on the server hard drive. Either
+  because they were already deleted during a manual or automatic deletion, or
+  because they were not included in your WordPress installation at all.
+</p>
+
 <form action="{{formAction}}" method="post">
   <input type="hidden" name="action" value="{{ tab.action }}" />
 
@@ -17,7 +23,11 @@
           <p>
             <code>
               {% if file.exists is same as true %}
-              <a href="{{ siteUrl }}/{{ file.name }}" target="_blank">
+              <a
+                href="{{ siteUrl }}/{{ file.name }}"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 {{ file.name }}
               </a>
               {% else %}
