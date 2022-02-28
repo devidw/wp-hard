@@ -1,5 +1,1 @@
-auto delete on theme update
-
-hide login page
-
-// composer install --ignore-platform-reqs
+= Hardening WordPress
