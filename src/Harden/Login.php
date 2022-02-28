@@ -19,6 +19,39 @@ class Login
         );
 
         if ($this->useCustomLoginPage()) {
+
+            /**
+             * Remove the `wp-admin` to `wp-login.php` redirect.
+             */
+            add_action(
+                hook_name: 'auth_redirect_scheme',
+                callback: [$this, 'removeAdminToLoginRedirect'],
+                // priority: PHP_INT_MAX,
+            );
+
+            /**
+             * Remove the `wp-admin` to `admin` and `wp-login` to `login` etc. redirects.
+             * 
+             * @see https://stackoverflow.com/a/37569749/13765033
+             */
+            remove_action(
+                hook_name: 'template_redirect',
+                callback: 'wp_redirect_admin_locations',
+                priority: 1000,
+            );
+
+            /**
+             * On logout go home.
+             */
+            add_action(
+                hook_name: 'wp_logout',
+                callback: function () {
+                    wp_redirect(home_url());
+                    die;
+                },
+                priority: PHP_INT_MAX
+            );
+
             add_action(
                 hook_name: 'init',
                 callback: [$this, 'addCustomLoginPageUrl'],
@@ -40,6 +73,22 @@ class Login
                 priority: PHP_INT_MAX,
             );
         }
+    }
+
+    /**
+     * Remove the `wp-admin` to `wp-login.php` redirect.
+     * 
+     * @see https://stackoverflow.com/a/42490453/13765033
+     */
+    public function removeAdminToLoginRedirect(string $scheme): string
+    {
+        if (is_user_logged_in()) {
+            return $scheme;
+        }
+
+        status_header(404);
+
+        die;
     }
 
     /**
@@ -236,9 +285,7 @@ class Login
             return;
         }
 
-        header('HTTP/1.0 404 Not Found');
-
-        @include_once get_query_template('404');
+        status_header(404);
 
         die;
     }

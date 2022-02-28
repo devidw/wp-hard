@@ -17,10 +17,7 @@ declare(strict_types=1);
 
 namespace Devidw\Hard;
 
-use Devidw\Hard\Plugin;
-use Devidw\Hard\MustUse;
-
-defined('ABSPATH') or die('No script kiddies please!');
+defined('ABSPATH') or die();
 
 require_once(__DIR__ . '/vendor/autoload.php');
 
