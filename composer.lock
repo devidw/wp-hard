@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "277aa9c3d81956751078031acb1bfbc8",
+    "content-hash": "5155ee762bf494af81b8c923168fd7c2",
     "packages": [
         {
             "name": "composer/installers",
@@ -148,6 +148,62 @@
                 }
             ],
             "time": "2021-09-13T08:21:20+00:00"
+        },
+        {
+            "name": "devidw/wp-helper",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/devidw/wp-helper.git",
+                "reference": "e9e777fb885c0d672db4cef1dac1396765877630"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/devidw/wp-helper/zipball/e9e777fb885c0d672db4cef1dac1396765877630",
+                "reference": "e9e777fb885c0d672db4cef1dac1396765877630",
+                "shasum": ""
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Devidw\\WordPress\\Helper\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "David Wolf",
+                    "email": "david@wolf.gdn"
+                }
+            ],
+            "description": "Handful helper functions to use inside a WordPress Theme or Plugin.",
+            "support": {
+                "issues": "https://github.com/devidw/wp-helper/issues",
+                "source": "https://github.com/devidw/wp-helper/tree/master"
+            },
+            "funding": [
+                {
+                    "url": "",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://buymeacoffee.com/dwolf",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://paypal.me/devidwolf",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/devidw",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-06-08T15:51:30+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -392,58 +448,6 @@
         }
     ],
     "packages-dev": [
-        {
-            "name": "devidw/wp-helper",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/devidw/wp-helper.git",
-                "reference": "2ed42fae8e5dae2b32b56b08ae56857ff0e7ead6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/devidw/wp-helper/zipball/2ed42fae8e5dae2b32b56b08ae56857ff0e7ead6",
-                "reference": "2ed42fae8e5dae2b32b56b08ae56857ff0e7ead6",
-                "shasum": ""
-            },
-            "default-branch": true,
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Devidw\\WordPress\\Helper\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "David Wolf",
-                    "email": "david@wolf.gdn"
-                }
-            ],
-            "description": "Handful helper functions to use inside a WordPress Theme or Plugin.",
-            "support": {
-                "issues": "https://github.com/devidw/wp-helper/issues",
-                "source": "https://github.com/devidw/wp-helper/tree/master"
-            },
-            "funding": [
-                {
-                    "url": "",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://buymeacoffee.com/dwolf",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://paypal.me/devidwolf",
-                    "type": "custom"
-                }
-            ],
-            "time": "2022-02-28T22:22:10+00:00"
-        },
         {
             "name": "doctrine/instantiator",
             "version": "1.4.0",
@@ -2553,5 +2557,5 @@
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.3.0"
 }

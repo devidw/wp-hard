@@ -123,21 +123,23 @@ class Login
         );
 
         add_settings_section(
+            page: 'dw-hard',
             id: 'dw-hard-login-section',
             title: 'Login',
             callback: function () {
 ?>
             <p>
-                Restrict direct access to your default WordPress
+                Restrict direct access to your WordPress admin login page by replacing the default
                 <a href="<?= wp_login_url() ?>" target="_blank" rel="noopener noreferrer"><code>wp-login.php</code></a>
-                and protect it with an extra layer of security by adding a custom login page.
+                with a custom login URL, only you know about.
             </p>
         <?php
             },
-            page: 'dw-hard',
         );
 
         add_settings_field(
+            page: 'dw-hard',
+            section: 'dw-hard-login-section',
             id: 'dw-hard-change-login-url-field',
             title: 'Set a custom login URL',
             callback: function () {
@@ -163,8 +165,6 @@ class Login
             </p>
 <?php
             },
-            page: 'dw-hard',
-            section: 'dw-hard-login-section',
         );
     }
 
@@ -263,14 +263,22 @@ class Login
         /**
          * Doing default WordPress logout.
          */
-        if (!empty($_GET['action']) and $_GET['action'] === 'logout' and !empty($_GET['_wpnonce']) and wp_verify_nonce($_GET['_wpnonce'], 'log-out') === 1) {
+        if (
+            !empty($_GET['action'])
+            and $_GET['action'] === 'logout'
+            and !empty($_GET['_wpnonce'])
+            and wp_verify_nonce($_GET['_wpnonce'], 'log-out') === 1
+        ) {
             return;
         }
 
         /**
          * Doing the customized WordPress login.
          */
-        if (!empty($_GET['dw_hard_login_nonce']) and wp_verify_nonce($_GET['dw_hard_login_nonce'], 'dw_hard_login_nonce') === 1) {
+        if (
+            !empty($_GET['dw_hard_login_nonce'])
+            and wp_verify_nonce($_GET['dw_hard_login_nonce'], 'dw_hard_login_nonce') === 1
+        ) {
 
             /**
              * We have to add the nonce to the form[action*="wp-login.php"] to keep things working after submitting the form.

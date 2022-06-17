@@ -16,7 +16,8 @@
     },
     "require": {
         "twig/twig": "^3.3",
-        "composer/installers": "^2.0"
+        "composer/installers": "^2.0",
+        "devidw/wp-helper": "dev-master"
     },
     "config": {
         "allow-plugins": {
@@ -25,7 +26,6 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5",
-        "symfony/var-dumper": "^6.0",
-        "devidw/wp-helper": "dev-master"
+        "symfony/var-dumper": "^6.0"
     }
 }

@@ -70,6 +70,7 @@ class PublicCoreFiles
         );
 
         add_settings_section(
+            page: 'dw-hard',
             id: 'dw-hard-auto-delete-public-core-files-section',
             title: 'Auto Delete Public Core Files',
             callback: function () {
@@ -84,10 +85,11 @@ class PublicCoreFiles
             </p>
 <?php
             },
-            page: 'dw-hard',
         );
 
         add_settings_field(
+            page: 'dw-hard',
+            section: 'dw-hard-auto-delete-public-core-files-section',
             id: 'dw-hard-auto-delete-public-core-files-field',
             title: 'Auto Delete Public Core Files',
             callback: function () {
@@ -97,8 +99,6 @@ class PublicCoreFiles
                 <input type="checkbox" name="dw_hard_auto_delete_public_core_files" {$checked}>
                 HTML;
             },
-            page: 'dw-hard',
-            section: 'dw-hard-auto-delete-public-core-files-section',
         );
     }
 
@@ -169,7 +169,7 @@ class PublicCoreFiles
         self::deleteFiles();
 
         wp_redirect(
-            location: admin_url('options-general.php?page=dw-hard'),
+            location: admin_url('options-general.php?page=dw-hard&tab=files'),
         );
     }
 }

@@ -11,7 +11,10 @@ class Page
 {
     public function __construct()
     {
-        add_action('admin_menu', [$this, 'addMenuEntry']);
+        add_action(
+            hook_name: 'admin_menu',
+            callback: [$this, 'addMenuEntry']
+        );
     }
 
     public function addMenuEntry(): void
@@ -21,7 +24,7 @@ class Page
             menu_title: 'Hardening',
             capability: 'administrator',
             menu_slug: 'dw-hard',
-            function: [$this, 'renderSettingsPage'],
+            callback: [$this, 'renderSettingsPage'],
             position: null,
         );
     }
@@ -42,7 +45,7 @@ class Page
         $twig->addExtension(new \Twig\Extension\DebugExtension());
 
         echo $twig->render(
-            name: 'settings.html',
+            name: 'settings.twig',
             context: [
                 'title' => 'Hardening',
                 'url' => admin_url('options-general.php?page=dw-hard'),
