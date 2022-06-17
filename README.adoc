@@ -1,6 +1,6 @@
 = Hardening WordPress
 
-A modern approach to hardening WordPress.
+A modern approach to hardening WordPress: A WordPress hardening plugin.
 
 
 == Features
