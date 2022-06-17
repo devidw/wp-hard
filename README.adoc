@@ -1,1 +1,11 @@
 = Hardening WordPress
+
+A modern approach to hardening WordPress.
+
+
+== Features
+
+For a full list of features, please see the classes under the `Devidw\Hard\Harden` namespace. Here are some of the features available from the plugins settings page:
+
+* Restrict direct access to your WordPress admin login page by replacing the default `wp-login.php` with a custom login URL, only you know about.
+* Delete public core files like `readme.html`, `license.txt`, etc. once or enable them to be deleted automatically on each core update.
